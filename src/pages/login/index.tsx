@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Layout } from "@/components/global";
 
 const LoginPage = () => {
@@ -12,12 +14,12 @@ const LoginPage = () => {
               </h2>
               <p className="mt-2 text-sm leading-6 text-gray-500">
                 Not a member?{" "}
-                <a
-                  href="#"
+                <Link
+                  href="/signup"
                   className="font-semibold text-indigo-600 hover:text-indigo-500"
                 >
                   Sign Up Today
-                </a>
+                </Link>
               </p>
             </div>
 
