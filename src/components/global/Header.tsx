@@ -7,8 +7,6 @@ import { FaAppleAlt } from "react-icons/fa";
 import { GiHoneypot, GiWineBottle, GiBeerStein } from "react-icons/gi";
 import Link from "next/link";
 
-import type { UserProfile } from "@auth0/nextjs-auth0/client";
-
 const brewMenu = [
   {
     name: "Beer",
@@ -247,9 +245,6 @@ export const Header = () => {
           </div>
         </Dialog.Panel>
       </Dialog>
-      <div className="text-center text-red-500">
-        Warning: This site is an active work in progress
-      </div>
     </header>
   );
 };
