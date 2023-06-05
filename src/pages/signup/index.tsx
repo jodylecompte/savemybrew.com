@@ -7,7 +7,7 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [handle, setHandle] = useState("");
 
-  const onSubmit = async (e: SubmitEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const response = await fetch("/api/auth/signup", {
