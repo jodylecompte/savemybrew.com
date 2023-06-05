@@ -10,6 +10,7 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 
 import "@/styles/globals.css";
+import { Seo } from "@/components/global/Seo";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -17,13 +18,16 @@ export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   return (
-    <SessionContextProvider
-      supabaseClient={supabaseClient}
-      initialSession={pageProps.initialSession}
-    >
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-      </QueryClientProvider>
-    </SessionContextProvider>
+    <>
+      <Seo />
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}
+      >
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
+      </SessionContextProvider>
+    </>
   );
 }

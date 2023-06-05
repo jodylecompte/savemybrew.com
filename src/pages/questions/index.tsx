@@ -79,6 +79,11 @@ const commenters = [
   },
 ];
 
+const pageMeta = {
+  title: "Questions",
+  description: "TODO: Write meta descriptions",
+};
+
 const QuestionsPage = () => {
   const [brewType, setBrewType] = useQueryState("brewType");
 
@@ -206,7 +211,7 @@ const QuestionsPage = () => {
     );
   };
   return (
-    <Layout>
+    <Layout meta={pageMeta}>
       <Container>
         <h1 className="my-8 text-3xl font-bold">Questions</h1>
         <FiltersDisclosure />

@@ -1,1 +1,8 @@
-export * from "./Questions";
+// This may eventually be broken down and converted to a
+// barrel file, it just depends on how many global types I end
+// up collecting that don't make sense plaed somewhere else
+
+export type PageMeta = {
+  title: string;
+  description: string;
+};

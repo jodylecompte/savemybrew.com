@@ -2,6 +2,11 @@ import { useState } from "react";
 
 import { Layout } from "@/components/global";
 
+const pageMeta = {
+  title: "Sign Up",
+  description: "TODO: Write meta descriptions",
+};
+
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +33,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <Layout>
+    <Layout meta={pageMeta}>
       <div className="flex flex-col justify-center flex-1 min-h-full px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-center text-gray-900">

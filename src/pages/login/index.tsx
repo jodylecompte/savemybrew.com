@@ -2,9 +2,14 @@ import Link from "next/link";
 
 import { Layout } from "@/components/global";
 
+const pageMeta = {
+  title: "Login to Your Account",
+  description: "TODO: Write meta descriptions",
+};
+
 const LoginPage = () => {
   return (
-    <Layout>
+    <Layout meta={pageMeta}>
       <div className="flex flex-1 min-h-full">
         <div className="flex flex-col justify-center flex-1 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="w-full max-w-sm mx-auto lg:w-96">

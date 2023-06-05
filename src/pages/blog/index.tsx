@@ -62,13 +62,18 @@ const posts = [
   // More posts...
 ];
 
+const pageMeta = {
+  title: "Latest Blog Posts",
+  description: "TODO: Write meta descriptions",
+};
+
 const BlogPage = () => {
   return (
-    <Layout>
+    <Layout meta={pageMeta}>
       <Container>
-        <div className="bg-white py-24 sm:py-32">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl text-center">
+        <div className="py-24 bg-white sm:py-32">
+          <div className="px-6 mx-auto max-w-7xl lg:px-8">
+            <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 Latest Blog Posts
               </h2>
@@ -77,7 +82,7 @@ const BlogPage = () => {
                 learn more about the craft.
               </p>
             </div>
-            <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            <div className="grid max-w-2xl grid-cols-1 mx-auto mt-16 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
               {posts.map((post) => (
                 <article
                   key={post.id}
@@ -94,7 +99,7 @@ const BlogPage = () => {
                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
                   <div className="max-w-xl">
-                    <div className="mt-8 flex items-center gap-x-4 text-xs">
+                    <div className="flex items-center mt-8 text-xs gap-x-4">
                       <time dateTime={post.datetime} className="text-gray-500">
                         {post.date}
                       </time>
@@ -105,24 +110,24 @@ const BlogPage = () => {
                         {post.category.title}
                       </Link>
                     </div>
-                    <div className="group relative">
+                    <div className="relative group">
                       <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                         <Link href={post.href}>
                           <span className="absolute inset-0" />
                           {post.title}
                         </Link>
                       </h3>
-                      <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+                      <p className="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
                         {post.description}
                       </p>
                     </div>
-                    <div className="relative mt-8 flex items-center gap-x-4">
+                    <div className="relative flex items-center mt-8 gap-x-4">
                       <Image
                         src={post.author.imageUrl}
                         width="80"
                         height="80"
                         alt=""
-                        className="h-10 w-10 rounded-full bg-gray-100"
+                        className="w-10 h-10 bg-gray-100 rounded-full"
                       />
                       <div className="text-sm leading-6">
                         <p className="font-semibold text-gray-900">

@@ -1,11 +1,15 @@
 import { Container, Layout } from "@/components/global";
-import { authService } from "../../services/authService";
+// import { authService } from "../../services/authService";
 
+const pageMeta = {
+  title: "Our Committment to Accessibility",
+  description: "TODO: Write meta descriptions",
+};
 const AccessibilityPage = () => {
   return (
-    <Layout>
+    <Layout meta={pageMeta}>
       <Container>
-        <div className="prose max-w-3xl m-auto mb-24 mt-6">
+        <div className="max-w-3xl m-auto mt-6 mb-24 prose">
           <h1>Our Committment to Accessibility</h1>
 
           <p>

@@ -3,19 +3,24 @@ import Link from "next/link";
 
 import { Layout } from "@/components/global";
 
+const pageMeta = {
+  title: "Home",
+  description: "TODO: Write meta descriptions",
+};
+
 const HeroSection = () => {
   return (
     <div className="bg-gray-900 !w-full -p-6 -lg:px-8 -mx-0 m-w-full">
-      <div className="relative isolate overflow-hidden">
+      <div className="relative overflow-hidden isolate">
         <Image
           src="/images/hero.jpeg"
           alt=""
           aria-hidden="true"
           fill={true}
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-30"
+          className="absolute inset-0 object-cover w-full h-full -z-10 opacity-30"
         />
         <div
-          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          className="absolute inset-x-0 overflow-hidden -top-40 -z-10 transform-gpu blur-3xl sm:-top-80"
           aria-hidden="true"
         >
           <div
@@ -26,7 +31,7 @@ const HeroSection = () => {
             }}
           />
         </div>
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+        <div className="max-w-2xl py-32 mx-auto sm:py-48 lg:py-56">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
               Get help with your brews
@@ -36,7 +41,7 @@ const HeroSection = () => {
               is that awful smell? Get help from other brewers to so you can get
               back to relaxing and having a homebrew.
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <div className="flex items-center justify-center mt-10 gap-x-6">
               <Link
                 href="#"
                 className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
@@ -65,7 +70,7 @@ const HeroSection = () => {
 
 export default function Home() {
   return (
-    <Layout>
+    <Layout meta={pageMeta}>
       <HeroSection />
       <div></div>
     </Layout>
