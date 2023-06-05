@@ -1,8 +1,11 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-
 import { supabase } from "@/services/supabase";
 
-// TODO: Type this
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import { signUpSchema } from "@/forms/signupSchema";
+
+import type { SignUpForm } from "@/forms/signupSchema";
+
 type Response = {
   error?: any;
   data?: any;
@@ -12,7 +15,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Response>
 ) {
-  const { email, password, handle } = req.body;
+  const validatedBody = signUpSchema.safeParse(req.body);
+  if (!validatedBody.success) {
+    return res.json({ error: validatedBody.error });
+  }
+
+  const { email, password, handle } = req.body satisfies SignUpForm;
 
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -28,7 +36,7 @@ export default async function handler(
   const { error: updateError, data: updateData } = await supabase
     .from("profiles")
     .update({ handle })
-    .eq("id", "" + id)
+    .eq("id", id)
     .select();
 
   if (!error) {
