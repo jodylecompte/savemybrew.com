@@ -139,7 +139,7 @@ const QuestionsPage = () => {
     return (
       <button
         type="button"
-        className="relative flex flex-col items-center block w-full p-12 mt-8 text-center border-2 border-gray-300 border-dashed rounded-lg hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="relative flex flex-col items-center w-full p-12 mt-8 text-center border-2 border-gray-300 border-dashed rounded-lg hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         <BsWindowPlus size="42" aria-hidden="true" />
         <span className="block mt-2 text-sm font-semibold text-gray-900">
