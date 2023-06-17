@@ -1,73 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { supabase } from "@/services/supabase";
+
+import type { GetServerSideProps, NextPage } from "next";
+
 import { Container, Layout } from "@/components/global";
+import { getPagination } from "@/util/pagination";
 
 // TODO: Both are temporary
 const imageUrl = "/images/mead-placeholder.jpeg";
 const avatarImg = "/images/temp-avatar.jpg";
-
-const posts = [
-  {
-    id: 1,
-    title: "Bench Trialing Traditional Meads",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    imageUrl,
-    date: "May 12, 2023",
-    datetime: "2020-03-16",
-    category: { title: "Recipes", href: "#" },
-    author: {
-      name: "Jody LeCompte",
-      role: "SaveMyBrew.com",
-      href: "#",
-      imageUrl: avatarImg,
-    },
-  },
-  {
-    id: 2,
-    title: "Pellet Hops vs Leaf Hops",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    imageUrl,
-    date: "May 11, 2023",
-    datetime: "2020-03-16",
-    category: { title: "Beer", href: "#" },
-    author: {
-      name: "Jody LeCompte",
-      role: "SaveMyBrew.com",
-      href: "#",
-      imageUrl: avatarImg,
-    },
-  },
-  {
-    id: 3,
-    title: "Building Your First Brewhouse",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    imageUrl,
-    date: "Mar 10, 2023",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
-    author: {
-      name: "Jody LeCompte",
-      role: "SaveMyBrew.com",
-      href: "#",
-      imageUrl: avatarImg,
-    },
-  },
-  // More posts...
-];
 
 const pageMeta = {
   title: "Latest Blog Posts",
   description: "TODO: Write meta descriptions",
 };
 
-const BlogPage = () => {
+type BlogPageProps = {
+  blogs: any[];
+};
+
+const BlogPage: NextPage<BlogPageProps> = ({ blogs }) => {
   return (
     <Layout meta={pageMeta}>
       <Container>
@@ -83,16 +37,16 @@ const BlogPage = () => {
               </p>
             </div>
             <div className="grid max-w-2xl grid-cols-1 mx-auto mt-16 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-              {posts.map((post) => (
+              {blogs.map((blog) => (
                 <article
-                  key={post.id}
+                  key={blog.id}
                   className="flex flex-col items-start justify-between"
                 >
                   <div className="relative w-full">
                     <Image
                       height="80"
                       width="80"
-                      src={post.imageUrl}
+                      src={blog.image_url}
                       alt=""
                       className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                     />
@@ -100,30 +54,33 @@ const BlogPage = () => {
                   </div>
                   <div className="max-w-xl">
                     <div className="flex items-center mt-8 text-xs gap-x-4">
-                      <time dateTime={post.datetime} className="text-gray-500">
-                        {post.date}
+                      <time
+                        dateTime={blog.published_at}
+                        className="text-gray-500"
+                      >
+                        {blog.published_at}
                       </time>
                       <Link
-                        href={post.category.href}
+                        href={blog.slug}
                         className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
                       >
-                        {post.category.title}
+                        {blog.title}
                       </Link>
                     </div>
                     <div className="relative group">
                       <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                        <Link href={post.href}>
+                        <Link href={blog.slug}>
                           <span className="absolute inset-0" />
-                          {post.title}
+                          {blog.title}
                         </Link>
                       </h3>
                       <p className="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
-                        {post.description}
+                        {blog.excerpt}
                       </p>
                     </div>
                     <div className="relative flex items-center mt-8 gap-x-4">
                       <Image
-                        src={post.author.imageUrl}
+                        src={blog.image_url}
                         width="80"
                         height="80"
                         alt=""
@@ -131,12 +88,12 @@ const BlogPage = () => {
                       />
                       <div className="text-sm leading-6">
                         <p className="font-semibold text-gray-900">
-                          <Link href={post.author.href}>
+                          <Link href="">
                             <span className="absolute inset-0" />
-                            {post.author.name}
+                            Jody LeCompte
                           </Link>
                         </p>
-                        <p className="text-gray-600">{post.author.role}</p>
+                        <p className="text-gray-600">Remove</p>
                       </div>
                     </div>
                   </div>
@@ -148,6 +105,37 @@ const BlogPage = () => {
       </Container>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps<
+  BlogPageProps
+> = async () => {
+  const { from, to } = getPagination(1, 6);
+  try {
+    const { data, error } = await supabase
+      .from("blogs")
+      .select("*")
+      .range(from, to);
+
+    if (error) {
+      console.error("Error fetching blog posts:", error);
+      return;
+    }
+
+    return {
+      props: {
+        blogs: data,
+      },
+    };
+  } catch (error) {
+    // Handle errors gracefully
+    console.error("Error fetching data:", error);
+    return {
+      props: {
+        data: null,
+      },
+    };
+  }
 };
 
 export default BlogPage;
