@@ -46,7 +46,7 @@ const BlogPage: NextPage<BlogPageProps> = ({ blogs }) => {
                     <Image
                       height="80"
                       width="80"
-                      src={blog.image_url}
+                      src={`/images/blog/${blog.image_file}`}
                       alt=""
                       className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                     />
@@ -60,12 +60,6 @@ const BlogPage: NextPage<BlogPageProps> = ({ blogs }) => {
                       >
                         {blog.published_at}
                       </time>
-                      <Link
-                        href={blog.slug}
-                        className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                      >
-                        {blog.title}
-                      </Link>
                     </div>
                     <div className="relative group">
                       <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
@@ -80,7 +74,7 @@ const BlogPage: NextPage<BlogPageProps> = ({ blogs }) => {
                     </div>
                     <div className="relative flex items-center mt-8 gap-x-4">
                       <Image
-                        src={blog.image_url}
+                        src="/images/temp-avatar.jpg"
                         width="80"
                         height="80"
                         alt=""
@@ -93,7 +87,6 @@ const BlogPage: NextPage<BlogPageProps> = ({ blogs }) => {
                             Jody LeCompte
                           </Link>
                         </p>
-                        <p className="text-gray-600">Remove</p>
                       </div>
                     </div>
                   </div>
@@ -107,9 +100,7 @@ const BlogPage: NextPage<BlogPageProps> = ({ blogs }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<
-  BlogPageProps
-> = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const { from, to } = getPagination(1, 6);
   try {
     const { data, error } = await supabase
