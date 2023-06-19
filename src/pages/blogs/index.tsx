@@ -108,7 +108,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
     if (error) {
       console.error("Error fetching blog posts:", error);
-      return;
+      return {
+        props: {
+          blogs: null,
+        },
+      };
     }
 
     return {
@@ -121,7 +125,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     console.error("Error fetching data:", error);
     return {
       props: {
-        data: null,
+        blogs: null,
       },
     };
   }
