@@ -1,16 +1,14 @@
+import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-
-import { supabase } from "@/services/supabase";
 
 import type { GetServerSideProps, NextPage } from "next";
 
 import { Container, Layout } from "@/components/global";
-import { getPagination } from "@/util/pagination";
 
-// TODO: Both are temporary
-const imageUrl = "/images/mead-placeholder.jpeg";
-const avatarImg = "/images/temp-avatar.jpg";
+import { supabase } from "@/services/supabase";
+
+import { getPagination } from "@/util/pagination";
 
 const pageMeta = {
   title: "Latest Blog Posts",
@@ -58,7 +56,7 @@ const BlogPage: NextPage<BlogPageProps> = ({ blogs }) => {
                         dateTime={blog.published_at}
                         className="text-gray-500"
                       >
-                        {blog.published_at}
+                        {format(new Date(blog.published_at), "MMMM dd, yyyy")}
                       </time>
                     </div>
                     <div className="relative group">
