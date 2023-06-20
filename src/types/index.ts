@@ -6,3 +6,8 @@ export type PageMeta = {
   title: string;
   description: string;
 };
+
+export type QuestionCategory = {
+  id: number;
+  label: string;
+};
